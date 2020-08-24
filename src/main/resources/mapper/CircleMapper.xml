@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saas.mapper.CircleMapper">
+  <resultMap id="BaseResultMap" type="com.saas.pojo.Circle">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="stars" jdbcType="BIGINT" property="stars" />
+    <result column="comments_times" jdbcType="INTEGER" property="commentsTimes" />
+    <result column="share_times" jdbcType="INTEGER" property="shareTimes" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

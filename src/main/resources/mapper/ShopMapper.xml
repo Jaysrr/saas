@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saas.mapper.ShopMapper">
+  <resultMap id="BaseResultMap" type="com.saas.pojo.Shop">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="business_license" jdbcType="VARCHAR" property="businessLicense" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="level" jdbcType="SMALLINT" property="level" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

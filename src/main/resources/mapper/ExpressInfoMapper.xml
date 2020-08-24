@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saas.mapper.ExpressInfoMapper">
+  <resultMap id="BaseResultMap" type="com.saas.pojo.ExpressInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="sender_phone" jdbcType="VARCHAR" property="senderPhone" />
+    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
+    <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="express_code" jdbcType="VARCHAR" property="expressCode" />
+    <result column="express_id" jdbcType="BIGINT" property="expressId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="express_info_status_speed_up_id" jdbcType="BIGINT" property="expressInfoStatusSpeedUpId" />
+  </resultMap>
+</mapper>

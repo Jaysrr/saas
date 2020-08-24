@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.saas.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.saas.pojo.Goods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="exist_number" jdbcType="INTEGER" property="existNumber" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>
