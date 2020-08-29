@@ -30,8 +30,8 @@ public class CircleDao {
         return circleMapper.updateByPrimaryKeySelective(circle);
     }
 
-    public Integer deleteCircle(Circle circle) {
-        return circleMapper.deleteByPrimaryKey(circle);
+    public Integer deleteCircle(Long id) {
+        return circleMapper.deleteByPrimaryKey(id);
     }
 
     public List<Circle> findCircle(Long id) {

@@ -16,23 +16,26 @@ import java.util.List;
  * @author: Jaysrr
  * @create: 2020-08-16 10:42
  **/
+
 @Repository
 public class ShopDao {
     @Autowired
     private ShopMapper shopMapper;
 
     public Integer addShop(Shop shop) {
-        return shopMapper.insert(shop);
+        return shopMapper.insertSelective(shop);
     }
 
     public Integer updateShop(Shop shop) {
         return shopMapper.updateByPrimaryKeySelective(shop);
     }
 
-    public List<Shop> login(String phoneNumber ) {
+    public List<Shop> login(String phoneNumber, String password) {
         Example example = new Example(Shop.class);
         example.createCriteria()
-                .andEqualTo("phoneNumber", phoneNumber);
+                .andEqualTo("phoneNumber", phoneNumber)
+                .andEqualTo("password", password);
+
         return shopMapper.selectByExample(example);
     }
 

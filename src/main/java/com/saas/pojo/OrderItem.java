@@ -14,9 +14,6 @@ public class OrderItem {
     @Column(name = "order_id")
     private Long orderId;
 
-    @Column(name = "cart_id")
-    private Long cartId;
-
     @Column(name = "goods_id")
     private Long goodsId;
 
@@ -63,20 +60,6 @@ public class OrderItem {
      */
     public void setOrderId(Long orderId) {
         this.orderId = orderId;
-    }
-
-    /**
-     * @return cart_id
-     */
-    public Long getCartId() {
-        return cartId;
-    }
-
-    /**
-     * @param cartId
-     */
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
     }
 
     /**

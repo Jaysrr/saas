@@ -1,5 +1,6 @@
 package com.saas.response;
 
+import com.saas.dto.ShopDto;
 import com.saas.pojo.Shop;
 import lombok.Data;
 
@@ -13,5 +14,7 @@ import java.util.List;
  **/
 @Data
 public class ShopLoginResponse {
-    private List<Shop> shopList;
+    private ShopDto shopDto;
+
+    private String token;
 }

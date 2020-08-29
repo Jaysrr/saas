@@ -16,7 +16,7 @@ import java.util.List;
  **/
 @Repository
 public class UserDao {
-       @Autowired
+    @Autowired
     private UserMapper userMapper;
 
     public Integer addUser(User user) {
@@ -40,4 +40,9 @@ public class UserDao {
     public List<User> findAll() {
         return userMapper.selectAll();
     }
+
+    public User findById(Long id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 }

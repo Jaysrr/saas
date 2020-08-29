@@ -23,4 +23,7 @@ public class CircleContentDao {
         return circleContentMapper.insertSelective(circleContent);
     }
 
+    public Integer updateCircleContent(CircleContent circleContent) {
+        return circleContentMapper.updateByPrimaryKeySelective(circleContent);
+    }
 }

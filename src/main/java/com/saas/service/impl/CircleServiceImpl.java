@@ -1,9 +1,12 @@
 package com.saas.service.impl;
 
+import com.saas.constants.UserConstants;
 import com.saas.dao.CircleContentDao;
 import com.saas.dao.CircleDao;
+import com.saas.dao.UserDao;
 import com.saas.pojo.Circle;
 import com.saas.pojo.CircleContent;
+import com.saas.pojo.User;
 import com.saas.request.AddCircleRequest;
 import com.saas.request.UpdateCircleRequest;
 import com.saas.response.IntegerResultResponse;
@@ -13,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-
 /**
  * @program: saas
  * @description:
@@ -23,6 +24,10 @@ import java.util.Date;
 public class CircleServiceImpl implements CircleService {
     @Autowired
     private CircleDao circleDao;
+
+    @Autowired
+    private UserDao userDao;
+
 
     @Autowired
     private CircleContentDao circleContentDao;
@@ -44,16 +49,44 @@ public class CircleServiceImpl implements CircleService {
         circle.setContentId(circleContent.getId());
         Integer result = circleDao.addCircle(circle);
 
+        //那么circle_content表里需要的circle_id应该从哪来 再更新一下circle_content表嘛?
+
         return new IntegerResultResponse(result);
     }
 
 
+    //还是上次的问题, 如果给对了circle_id但是没给对circle_content_id,
+    // 虽然没有异常,但是事务没管住,circle表更新了,但circle_content表没更新
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public IntegerResultResponse updateCircle(UpdateCircleRequest request) {
         Circle circle = new Circle();
         BeanUtils.copyProperties(request, circle);
-        Integer result = circleDao.updateCircle(circle);
-        return new IntegerResultResponse(result);
+        //通过前端传来的userId查找这个user
+        User user = userDao.findById(request.getUserId());
+        Integer updateCircleRst = null;
+        Integer updateContentRst = null;
+
+        //查看这个user是否为vip,非vip无法更新
+        if (null != user && null != user.getIsVip() && UserConstants.isVip.equals(user.getIsVip())) {
+
+            //更新circle表
+            updateCircleRst = circleDao.updateCircle(circle);
+            System.out.println(" CircleRst = " + updateCircleRst);
+
+            //再判断contentId对应的circleContent是否存在,存在则将circle_content里的数据也一起修改(用事务控制两个更新操作)
+            CircleContent circleContent = new CircleContent();
+
+            //注意如果先用BeanUtils,前端id是circle的id和这个主键id 不一样,需要再将冲突的字段在后面填充
+            BeanUtils.copyProperties(request, circleContent);
+            circleContent.setId(request.getContentId());
+            circleContent.setCircleId(request.getId());
+
+            updateContentRst = circleContentDao.updateCircleContent(circleContent);
+            System.out.println("updateContentRst = " + updateContentRst);
+
+        }
+        return new IntegerResultResponse(updateCircleRst & updateContentRst);
     }
 
 

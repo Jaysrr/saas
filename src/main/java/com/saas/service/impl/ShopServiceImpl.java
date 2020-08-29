@@ -2,6 +2,7 @@ package com.saas.service.impl;
 
 import com.saas.dao.ShopDao;
 import com.saas.dao.UserDao;
+import com.saas.dto.ShopDto;
 import com.saas.pojo.Shop;
 import com.saas.pojo.User;
 import com.saas.request.*;
@@ -12,11 +13,13 @@ import com.saas.service.ShopService;
 import com.saas.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @program: saas
@@ -28,6 +31,10 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDao shopDao;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
 
     @Override
     public IntegerResultResponse addShop(AddShopRequest request) {
@@ -50,18 +57,24 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public ShopLoginResponse login(ShopLoginRequest request) {
-        List<Shop> shopList = shopDao.login(request.getPhoneNumber());
+        List<Shop> shopList = shopDao.login(request.getPhoneNumber(), request.getPassword());
 
-        ShopLoginResponse shopLoginResponse = null;
+        ShopLoginResponse response = null;
+        Shop shop = null;
+        ShopDto shopDto = null;
         if (!CollectionUtils.isEmpty(shopList)) {
-            shopLoginResponse = new ShopLoginResponse();
-            BeanUtils.copyProperties(shopList.get(0), shopLoginResponse);
+            shop = shopList.get(0);
+            shopDto = new ShopDto();
+            response = new ShopLoginResponse();
+
+            BeanUtils.copyProperties(shop, shopDto);
+            //登录成功后,生成token存到redis,并返回这个token给前端
+            String shopLoginToken = UUID.randomUUID().toString();
+            stringRedisTemplate.opsForValue().set("shopId:" + shop.getId().toString(), shopLoginToken);
+            response.setToken(shopLoginToken);
+            response.setShopDto(shopDto);
         }
-        //登录成功后,生成token存到redis,并返回这个token给前端
 
-
-        shopLoginResponse.setShopList(shopList);
-
-        return shopLoginResponse;
+        return response;
     }
 }

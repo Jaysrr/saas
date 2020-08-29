@@ -4,7 +4,7 @@ import lombok.Data;
 
 /**
  * @program: saas
- * @description:
+ * @description: 有AddCircleRequest了，应该是不需要下面这个请求
  **/
 @Data
 public class AddCircleContentRequest {
